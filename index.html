@@ -87,14 +87,14 @@
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));2
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
             timer.textContent = `${days}j ${hours}h ${minutes}m ${seconds}s`;
         }, 1000);
     </script>
     <header>
-        <img src="logo.png" alt="Logo Team Ping Pong FR" style="width:120px;height:auto;margin-bottom:20px;animation:fadeIn 2s ease;" />
+        <img src="logo.png" alt="Logo Team Ping Pong FR" style="width:120px;height:120px;margin-bottom:20px;animation:fadeIn 2s ease;border-radius:50%;object-fit:cover;""Logo Team Ping Pong FR" style="width:120px;height:auto;margin-bottom:20px;animation:fadeIn 2s ease;" />
         <h1>Team Ping Pong FR</h1>
         <p>Bienvenue dans la meilleure communauté de Ping-Pong en France !</p>
     </header>
@@ -114,7 +114,7 @@
             <li>Accepter les règles de la communauté.</li>
             <li>Faire un petit match d'entrée pour évaluer ton niveau (rien de stressant ! 😄).</li>
         </ul>
-        <a href="#form" class="btn">S'inscrire maintenant</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfnbgjY7WGn6Dq6MzfQMka3kwb1HrLb9kqzBTmXiWxshxtWLw/viewform?usp=publish-editor" target="_blank" class="btn">S'inscrire maintenant</a>
     </div>
 
     <div class="section" id="form">
