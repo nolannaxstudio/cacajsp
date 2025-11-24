@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Ping Pong FR</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e90ff, #00bfff);
+            color: white;
+            overflow-x: hidden;
+        }
+        header {
+            text-align: center;
+            padding: 80px 20px;
+            animation: fadeIn 2s ease;
+        }
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+        p {
+            font-size: 1.2rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section {
+            background: rgba(255, 255, 255, 0.15);
+            margin: 30px auto;
+            padding: 25px;
+            width: 85%;
+            border-radius: 15px;
+            backdrop-filter: blur(6px);
+            animation: slideUp 1s ease;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .btn {
+            display: inline-block;
+            background: #ffcc00;
+            padding: 12px 22px;
+            color: #000;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+    <div id="countdownScreen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white;font-size:2rem;z-index:9999;overflow:hidden;">
+        <video autoplay muted loop playsinline style="position:absolute;width:100%;height:100%;object-fit:cover;z-index:-1;">
+            <source src="background.mp4" type="video/mp4" />
+        </video>
+        <h2 style="text-shadow:0 0 10px black;">🔒 Ouverture du site dans :</h2>
+        <div id="timer" style="font-size:3rem;margin-top:20px;text-shadow:0 0 10px black;"></div>
+    </div>
+
+    <script>
+        const launchDate = new Date("Nov 26, 2025 16:00:00").getTime();
+        const timer = document.getElementById("timer");
+        const screen = document.getElementById("countdownScreen");
+
+        const interval = setInterval(() => {
+            const now = new Date().getTime();
+            const diff = launchDate - now;
+
+            if (diff <= 0) {
+                clearInterval(interval);
+                screen.style.display = "none";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            timer.textContent = `${days}j ${hours}h ${minutes}m ${seconds}s`;
+        }, 1000);
+    </script>
+    <header>
+        <h1>Team Ping Pong FR</h1>
+        <p>Bienvenue dans la meilleure communauté de Ping-Pong en France !</p>
+    </header>
+
+    <div class="section">
+        <h2>🎯 Qui sommes-nous ?</h2>
+        <p>
+            TeamPingPongFR est une communauté dédiée aux passionnés de tennis de table. Nous organisons des matchs, des tournois, des entraînements et plein d'événements pour tous les niveaux.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>🚪 Comment nous rejoindre ?</h2>
+        <p>Pour rentrer dans la team, c'est simple :</p>
+        <ul>
+            <li>Remplir le formulaire d'inscription (disponible ci‑dessous).</li>
+            <li>Accepter les règles de la communauté.</li>
+            <li>Faire un petit match d'entrée pour évaluer ton niveau (rien de stressant ! 😄).</li>
+        </ul>
+        <a href="#form" class="btn">S'inscrire maintenant</a>
+    </div>
+
+    <div class="section" id="form">
+        <h2>📝 Formulaire d'entrée</h2>
+        <form>
+            <label>Nom :</label><br />
+            <input type="text" style="width: 100%; padding: 10px; border-radius: 8px; border: none;" /><br /><br />
+
+            <label>Âge :</label><br />
+            <input type="number" style="width: 100%; padding: 10px; border-radius: 8px; border: none;" /><br /><br />
+
+            <label>Niveau de Ping-Pong :</label><br />
+            <select style="width: 100%; padding: 10px; border-radius: 8px; border: none;">
+                <option>Débutant</option>
+                <option>Intermédiaire</option>
+                <option>Avancé</option>
+                <option>Compétiteur</option>
+            </select><br /><br />
+
+            <button class="btn" type="submit">Envoyer</button>
+        </form>
+    </div>
+
+    <footer>
+        © 2025 TeamPingPongFR — Tous droits réservés
+    </footer>
+</body>
+</html>
