@@ -10,6 +10,7 @@
       --bg:#06060a; --card:#0f1116; --accent1:#ff006a; --accent2:#6b00ff; --muted:#9aa0a6;
       --glass: rgba(255,255,255,0.03);
       --section-bg: rgba(255,255,255,0.05);
+      --button-bg: linear-gradient(90deg,var(--accent1),var(--accent2));
     }
 
     *{box-sizing:border-box;}
@@ -30,15 +31,13 @@
     .menu{display:flex;gap:14px}
     .menu a{color:white;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
     .menu a:hover{background:var(--glass)}
-    .cta{background:#0f1724;padding:8px 12px;border-radius:8px;color:white;text-decoration:none}
+    .cta{background:var(--button-bg);padding:8px 12px;border-radius:8px;color:white;text-decoration:none}
 
     .hero{padding:64px 20px 40px;text-align:left}
     .hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
     .hero h2{font-size:2.6rem;margin:0 0 12px;line-height:1.02}
     .hero p{color:var(--muted);margin:0 0 18px}
-    .btn{padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:800}
-    .btn-primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .btn{padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:800;background:var(--button-bg);color:white;display:inline-block;}
 
     section p{font-size:1.1rem;line-height:1.6;margin-bottom:20px;padding:20px;border-radius:14px;background:var(--section-bg)}
 
@@ -94,8 +93,8 @@
       <h2>TeamPingPongFR — équipe FR compétitive</h2>
       <p class="muted">Bienvenue dans la meilleure communauté de Ping-Pong Steal a Brainrot en France !</p>
       <div class="buttons" style="margin-top:16px">
-        <a class="btn btn-primary" href="https://discord.gg/sbAxRyRw8h" target="_blank">Rejoindre Discord</a>
-        <a class="btn btn-ghost" href="https://docs.google.com/forms/d/e/1FAIpQLSfnbgjY7WGn6Dq6MzfQMka3kwb1HrLb9kqzBTmXiWxshxtWLw/viewform" target="_blank">Postuler</a>
+        <a class="btn" href="https://discord.gg/sbAxRyRw8h" target="_blank">Rejoindre Discord</a>
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfnbgjY7WGn6Dq6MzfQMka3kwb1HrLb9kqzBTmXiWxshxtWLw/viewform" target="_blank">Postuler</a>
       </div>
     </div>
   </div>
@@ -107,7 +106,7 @@
   <p><strong>🧾 Qu'est ce qu'il faut en plus pour rentrer dans la Team ?</strong><br>Il faut donner un brainrot à plus de 10m/s ou 20/s etc 💵.</p>
   <p><strong>🚪 Comment nous rejoindre ?</strong><br>Pour rentrer dans la team, c'est simple :<br>• Remplir le formulaire d'inscription (disponible ci‑dessous).<br>• Accepter les règles de la communauté.<br>• Faire un petit match d'entrée pour évaluer ton niveau (rien de stressant ! 😄)</p>
   <div style="margin-top:20px;">
-    <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfnbgjY7WGn6Dq6MzfQMka3kwb1HrLb9kqzBTmXiWxshxtWLw/viewform" target="_blank">Remplir le formulaire d'inscription</a>
+    <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfnbgjY7WGn6Dq6MzfQMka3kwb1HrLb9kqzBTmXiWxshxtWLw/viewform" target="_blank">Remplir le formulaire d'inscription</a>
   </div>
 </section>
 
