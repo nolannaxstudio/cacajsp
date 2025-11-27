@@ -60,7 +60,8 @@
   const events = [];
   const startDate = new Date("2025-11-29T21:00:00");
   let d = new Date(startDate);
-  while (d.getFullYear() < 2026 || (d.getFullYear() === 2026 && d.getMonth() <= 1)) {
+  // Jusqu'à fin mars 2026
+  while (d.getFullYear() < 2026 || (d.getFullYear() === 2026 && d.getMonth() <= 2)) {
     events.push({name: "Admin Abuse", date: new Date(d)});
     d.setDate(d.getDate() + 7);
   }
