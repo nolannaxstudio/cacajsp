@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TeamPingPongFR</title>
+
   <style>
     :root{
       --bg:#06060a; --card:#0f1116; --accent1:#ff006a; --accent2:#6b00ff; --muted:#9aa0a6;
@@ -13,6 +14,15 @@
 
     *{box-sizing:border-box;}
     body{margin:0;font-family:Inter, system-ui, Arial, sans-serif;background:var(--bg);color:#fff;overflow-x:hidden;}
+
+    #countdownScreen{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg, #0b0b11, #06060a);z-index:999999;animation:fadeIn 1s ease;text-align:center;padding:20px;}
+    #countdownBox{background:rgba(255,255,255,0.05);padding:30px;border-radius:20px;backdrop-filter:blur(6px);box-shadow:0 0 50px rgba(0,0,0,0.6);animation:float 4s ease-in-out infinite;}
+    #countdownScreen h2{font-size:2.2rem;margin-bottom:20px;background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;color:transparent;font-weight:900;}
+    #timer{font-size:2.5rem;font-weight:900;letter-spacing:1px;}
+
+    @keyframes fadeIn{from{opacity:0} to{opacity:1}}
+    @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
     nav{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:linear-gradient(90deg,var(--accent1),var(--accent2));box-shadow:0 8px 40px rgba(0,0,0,0.6);position:sticky;top:0;z-index:40;}
     .brand{display:flex;gap:12px;align-items:center}
     .logo{width:56px;height:56px;border-radius:12px;background:url('logo.png') no-repeat center/cover;}
@@ -21,20 +31,47 @@
     .menu a{color:white;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
     .menu a:hover{background:var(--glass)}
     .cta{background:#0f1724;padding:8px 12px;border-radius:8px;color:white;text-decoration:none}
+
     .hero{padding:64px 20px 40px;text-align:left}
     .hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
     .hero h2{font-size:2.6rem;margin:0 0 12px;line-height:1.02}
     .hero p{color:var(--muted);margin:0 0 18px}
     .btn{padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:800}
     .btn-primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white}
-    section{padding:60px 20px;max-width:900px;margin:0 auto;}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
     section p{font-size:1.1rem;line-height:1.6;margin-bottom:20px;padding:20px;border-radius:14px;background:var(--section-bg)}
+
     .players{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0;}
     .player{flex:1 1 200px;padding:12px;background:rgba(255,255,255,0.07);border-radius:12px;text-align:center;}
+
     footer{padding:28px;text-align:center;color:var(--muted);margin-top:20px}
   </style>
 </head>
 <body>
+
+<div id="countdownScreen">
+  <div id="countdownBox">
+    <h2>🔒 Le site ouvre dans :</h2>
+    <div id="timer">Chargement…</div>
+  </div>
+</div>
+
+<script>
+  const launchDate = new Date("Nov 27, 2025 13:14:00").getTime();
+  const timer = document.getElementById("timer");
+  const screen = document.getElementById("countdownScreen");
+  const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const diff = launchDate - now;
+      if(diff <= 0){clearInterval(interval);screen.style.opacity="0";setTimeout(()=>screen.style.display="none",700);return;}
+      const days = Math.floor(diff/(1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
+      const minutes = Math.floor((diff % (1000*60*60))/(1000*60));
+      const seconds = Math.floor((diff % (1000*60))/1000);
+      timer.textContent = `${days}j ${hours}h ${minutes}m ${seconds}s`;
+  },1000);
+</script>
 
 <nav>
   <div class="brand">
@@ -45,8 +82,8 @@
     </div>
   </div>
   <div class="menu">
-    <a href="explication.html">Explication</a>
-    <a href="joueurs.html">Joueurs</a>
+    <a href="#explication">Explication</a>
+    <a href="#joueurs">Joueurs</a>
     <a class="cta" href="https://discord.gg/sbAxRyRw8h" target="_blank">Discord</a>
   </div>
 </nav>
@@ -64,9 +101,34 @@
   </div>
 </header>
 
+<section id="explication" style="padding:60px 20px;max-width:900px;margin:0 auto;">
+  <h2 style="font-size:2.4rem;margin-bottom:20px;background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;color:transparent;">Explication</h2>
+  <p><strong>🎯 Qui sommes-nous ?</strong><br>TeamPingPongFR est une communauté dédiée aux passionnés de Steal a Brainrot. Nous organisons tout les samedi ensemble, pour les admin abuse etc. Continuer sur le Forms.</p>
+  <p><strong>🧾 Qu'est ce qu'il faut en plus pour rentrer dans la Team ?</strong><br>Il faut donner un brainrot à plus de 10m/s ou 20/s etc 💵.</p>
+  <p><strong>🚪 Comment nous rejoindre ?</strong><br>Pour rentrer dans la team, c'est simple :<br>• Remplir le formulaire d'inscription (disponible ci‑dessous).<br>• Accepter les règles de la communauté.<br>• Faire un petit match d'entrée pour évaluer ton niveau (rien de stressant ! 😄)</p>
+  <div style="margin-top:20px;">
+    <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfnbgjY7WGn6Dq6MzfQMka3kwb1HrLb9kqzBTmXiWxshxtWLw/viewform" target="_blank">Remplir le formulaire d'inscription</a>
+  </div>
+</section>
+
+<section id="joueurs" style="padding:60px 20px;max-width:900px;margin:0 auto;">
+  <h2 style="font-size:2.4rem;margin-bottom:20px;background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;color:transparent;">Joueurs</h2>
+  <div class="players">
+    <div class="player">Nolannax</div>
+    <div class="player">Aodren</div>
+    <div class="player">Liamnoelix</div>
+    <div class="player">Lioto</div>
+    <div class="player">Jonahjojoyt</div>
+  </div>
+</section>
+
 <footer>
   © TeamPingPongFR — Steal a Brainrot • Site eSport moderne
 </footer>
+
+<script>
+  document.querySelectorAll('.fade-up').forEach((el,i)=>el.style.animationDelay=(i*0.05)+"s");
+</script>
 
 </body>
 </html>
