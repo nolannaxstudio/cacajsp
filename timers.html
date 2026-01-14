@@ -6,205 +6,197 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: white;
+:root{
+  --bg:#06060a;
+  --card:#0f1116;
+  --accent1:#ff006a;
+  --accent2:#6b00ff;
+  --muted:#9aa0a6;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 25px;
-  background: rgba(0,0,0,0.4);
+body{
+  margin:0;
+  font-family:Inter, Arial, sans-serif;
+  background:var(--bg);
+  color:white;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 22px;
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 28px;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
 }
 
-header button {
-  background: #ff9800;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
+nav h1{margin:0;font-size:20px;}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  font-weight:700;
+  padding:8px 14px;
+  border-radius:8px;
+  background:rgba(255,255,255,0.15);
 }
 
-header button:hover {
-  background: #ffa726;
+main{padding:30px;text-align:center;}
+
+#mainTimer{
+  background:rgba(255,255,255,0.05);
+  padding:30px;
+  border-radius:20px;
+  max-width:700px;
+  margin:30px auto;
+  box-shadow:0 0 40px rgba(0,0,0,0.6);
 }
 
-main {
-  padding: 30px;
+#mainTimer h2{
+  font-size:2.2rem;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  color:transparent;
 }
 
-#timers {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+#mainCountdown{
+  font-size:2rem;
+  margin-top:15px;
 }
 
-.timer {
-  background: rgba(0,0,0,0.45);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+#timers{
+  margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
 }
 
-.timer strong {
-  font-size: 18px;
+.timer{
+  background:var(--card);
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 0 25px rgba(0,0,0,0.5);
 }
 
-.timer small {
-  color: #ccc;
+.status{
+  margin-top:10px;
+  font-weight:800;
 }
 
-.status {
-  margin-top: 10px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.en-cours {
-  color: #ff5252;
-}
-
-.passe {
-  color: #4caf50;
-}
-
-footer {
-  text-align: center;
-  padding: 15px;
-  font-size: 13px;
-  color: #ccc;
-}
+.en-cours{color:#ff5252;}
+.passe{color:#4caf50;}
 </style>
 </head>
 
 <body>
 
-<header>
+<nav>
   <h1>🔥 Admin Abuse</h1>
-  <button onclick="scrollToTimers()">⏱ Timers</button>
-</header>
+  <a href="#timers">⏱ Timers</a>
+</nav>
 
 <main>
-  <h2>📅 Prochains événements</h2>
+
+  <!-- TIMER PRINCIPAL -->
+  <div id="mainTimer">
+    <h2>⏳ Prochain Admin Abuse</h2>
+    <div id="mainCountdown">Chargement…</div>
+  </div>
+
+  <!-- LISTE DES TIMERS -->
   <div id="timers"></div>
+
 </main>
 
-<footer>
-  © 2025 - Admin Abuse
-</footer>
-
 <script>
-/* ===============================
-   CONFIG
-================================ */
+/* CONFIG */
 const START_DATE = new Date("2025-11-29T21:00:00"); // samedi 21h
-const EVENT_DURATION = 30 * 60 * 1000; // 30 minutes
+const EVENT_DURATION = 30 * 60 * 1000;
 const END_YEAR = 2026;
-const END_MONTH = 2; // mars (0 = janvier)
+const END_MONTH = 2;
 
-/* ===============================
-   GENERATION DES EVENTS
-================================ */
-const events = [];
-let d = new Date(START_DATE);
+/* EVENTS */
+const events=[];
+let d=new Date(START_DATE);
 
-while (
-  d.getFullYear() < END_YEAR ||
-  (d.getFullYear() === END_YEAR && d.getMonth() <= END_MONTH)
-) {
-  events.push({
-    name: "Admin Abuse",
-    date: new Date(d)
-  });
-  d.setDate(d.getDate() + 7); // samedi suivant
+while(d.getFullYear()<END_YEAR || (d.getFullYear()===END_YEAR && d.getMonth()<=END_MONTH)){
+  events.push({name:"Admin Abuse",date:new Date(d)});
+  d.setDate(d.getDate()+7);
 }
 
-/* ===============================
-   NOTIFICATIONS
-================================ */
-let notified = new Set();
-
-if ("Notification" in window && Notification.permission !== "granted") {
+/* NOTIF */
+let notified=new Set();
+if("Notification"in window && Notification.permission!=="granted"){
   Notification.requestPermission();
 }
-
-function sendNotification() {
-  if (Notification.permission === "granted") {
-    new Notification("🔥 Admin Abuse en cours !", {
-      body: "L'event Admin Abuse vient de commencer",
-    });
+function notify(){
+  if(Notification.permission==="granted"){
+    new Notification("🔥 Admin Abuse en cours !",{body:"L'event vient de commencer"});
   }
 }
 
-/* ===============================
-   TIMERS
-================================ */
-function updateTimers() {
-  const now = new Date();
-  const container = document.getElementById("timers");
-  container.innerHTML = "";
+/* UPDATE */
+function update(){
+  const now=new Date();
+  const list=document.getElementById("timers");
+  list.innerHTML="";
 
-  events.forEach(event => {
-    const start = event.date;
-    const end = new Date(start.getTime() + EVENT_DURATION);
-    let status = "";
-    let cls = "";
+  /* PROCHAIN EVENT */
+  const next=events.find(e=> now < new Date(e.date.getTime()+EVENT_DURATION));
 
-    if (now < start) {
-      const diff = start - now;
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor(diff / 3600000) % 24;
-      const m = Math.floor(diff / 60000) % 60;
-      const s = Math.floor(diff / 1000) % 60;
-      status = `${d}j ${h}h ${m}m ${s}s`;
-    }
-    else if (now >= start && now <= end) {
-      status = "⏳ EN COURS";
-      cls = "en-cours";
+  if(next){
+    const start=next.date;
+    const end=new Date(start.getTime()+EVENT_DURATION);
+    let text="";
 
-      if (!notified.has(start.getTime())) {
-        sendNotification();
+    if(now < start){
+      const diff=start-now;
+      const d=Math.floor(diff/86400000);
+      const h=Math.floor(diff/3600000)%24;
+      const m=Math.floor(diff/60000)%60;
+      const s=Math.floor(diff/1000)%60;
+      text=`${d}j ${h}h ${m}m ${s}s`;
+    }else{
+      text="⏳ EN COURS";
+      if(!notified.has(start.getTime())){
+        notify();
         notified.add(start.getTime());
       }
     }
-    else {
-      status = "✅ Passé";
-      cls = "passe";
+    document.getElementById("mainCountdown").innerText=text;
+  }else{
+    document.getElementById("mainCountdown").innerText="Aucun événement prévu";
+  }
+
+  /* LISTE */
+  events.forEach(e=>{
+    const start=e.date;
+    const end=new Date(start.getTime()+EVENT_DURATION);
+    let status="",cls="";
+
+    if(now < start){
+      const diff=start-now;
+      status=`${Math.floor(diff/86400000)}j ${Math.floor(diff/3600000)%24}h`;
+    }else if(now>=start && now<=end){
+      status="⏳ EN COURS";
+      cls="en-cours";
+    }else{
+      status="✅ Passé";
+      cls="passe";
     }
 
-    const div = document.createElement("div");
-    div.className = "timer";
-    div.innerHTML = `
-      <strong>${event.name}</strong><br>
-      <small>${start.toLocaleString()}</small>
+    const div=document.createElement("div");
+    div.className="timer";
+    div.innerHTML=`
+      <strong>${e.name}</strong><br>
+      ${start.toLocaleString()}
       <div class="status ${cls}">${status}</div>
     `;
-    container.appendChild(div);
+    list.appendChild(div);
   });
 }
 
-/* ===============================
-   UTILS
-================================ */
-function scrollToTimers() {
-  document.getElementById("timers").scrollIntoView({ behavior: "smooth" });
-}
-
-/* ===============================
-   START
-================================ */
-updateTimers();
-setInterval(updateTimers, 1000);
+update();
+setInterval(update,1000);
 </script>
 
 </body>
