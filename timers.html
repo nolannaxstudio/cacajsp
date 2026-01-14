@@ -2,188 +2,209 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<title>Admin Abuse - Timers</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Abuse Timers</title>
 
 <style>
-:root{
-  --bg:#06060a;
-  --accent1:#ff006a;
-  --accent2:#6b00ff;
-  --muted:#9aa0a6;
-  --glass:rgba(255,255,255,.07);
-  --gradient:linear-gradient(90deg,var(--accent1),var(--accent2));
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:Inter,system-ui,Arial,sans-serif;
-  background:var(--bg);
-  color:#fff;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: rgba(0,0,0,0.4);
 }
 
-.bg-blur{
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 30% 30%,rgba(255,0,106,.18),transparent 40%),
-    radial-gradient(circle at 70% 70%,rgba(107,0,255,.18),transparent 40%);
-  z-index:-1;
+header h1 {
+  margin: 0;
+  font-size: 22px;
 }
 
-/* NAV */
-nav{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:var(--gradient);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px 24px;
+header button {
+  background: #ff9800;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
 }
-.menu a{
-  color:#fff;
-  text-decoration:none;
-  padding:8px 14px;
-  border-radius:8px;
-  font-weight:800;
-}
-.menu a:hover{background:rgba(255,255,255,.2)}
 
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:70px 20px;
-  text-align:center;
+header button:hover {
+  background: #ffa726;
 }
-h1{
-  font-size:2.6rem;
-  background:var(--gradient);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-.subtitle{color:var(--muted);margin:12px 0 30px}
 
-.timers{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
+main {
+  padding: 30px;
 }
-.timer{
-  background:var(--glass);
-  padding:18px;
-  border-radius:18px;
-  transition:.2s;
-}
-.timer:hover{transform:translateY(-6px)}
 
-.status{
-  font-size:1.3rem;
-  font-weight:900;
-  margin-top:10px;
+#timers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
 }
-.en-cours{
-  color:#ffd000;
-  animation:pulse 1.5s infinite;
-}
-.passe{color:#4cff4c}
 
-@keyframes pulse{
-  0%{box-shadow:0 0 0 rgba(255,208,0,.5)}
-  50%{box-shadow:0 0 25px rgba(255,208,0,.9)}
-  100%{box-shadow:0 0 0 rgba(255,208,0,.5)}
+.timer {
+  background: rgba(0,0,0,0.45);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+.timer strong {
+  font-size: 18px;
+}
+
+.timer small {
+  color: #ccc;
+}
+
+.status {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.en-cours {
+  color: #ff5252;
+}
+
+.passe {
+  color: #4caf50;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+  color: #ccc;
 }
 </style>
 </head>
 
 <body>
-<div class="bg-blur"></div>
 
-<nav>
-  <strong>Admin Abuse</strong>
-  <div class="menu">
-    <a href="index.html">Menu</a>
-    <a target="_blank" href="https://discord.gg/sbAxRyRw8h">Discord</a>
-  </div>
-</nav>
+<header>
+  <h1>🔥 Admin Abuse</h1>
+  <button onclick="scrollToTimers()">⏱ Timers</button>
+</header>
 
-<div class="container">
-  <h1>⏳ Admin Abuse</h1>
-  <p class="subtitle">Notification automatique au lancement</p>
+<main>
+  <h2>📅 Prochains événements</h2>
+  <div id="timers"></div>
+</main>
 
-  <div id="timers" class="timers">Chargement…</div>
-</div>
+<footer>
+  © 2025 - Admin Abuse
+</footer>
 
 <script>
-const events=[];
-const startDate=new Date("2026-01-14T08:39:00");
-let d=new Date(startDate);
+/* ===============================
+   CONFIG
+================================ */
+const START_DATE = new Date("2025-11-29T21:00:00"); // samedi 21h
+const EVENT_DURATION = 30 * 60 * 1000; // 30 minutes
+const END_YEAR = 2026;
+const END_MONTH = 2; // mars (0 = janvier)
 
-// jusqu'à mars 2026
-while(d.getFullYear()<2026||(d.getFullYear()===2026&&d.getMonth()<=2)){
-  events.push({name:"Admin Abuse",date:new Date(d)});
-  d.setDate(d.getDate()+7);
+/* ===============================
+   GENERATION DES EVENTS
+================================ */
+const events = [];
+let d = new Date(START_DATE);
+
+while (
+  d.getFullYear() < END_YEAR ||
+  (d.getFullYear() === END_YEAR && d.getMonth() <= END_MONTH)
+) {
+  events.push({
+    name: "Admin Abuse",
+    date: new Date(d)
+  });
+  d.setDate(d.getDate() + 7); // samedi suivant
 }
 
-let notified=new Set();
+/* ===============================
+   NOTIFICATIONS
+================================ */
+let notified = new Set();
 
-// demander permission
-if("Notification"in window && Notification.permission!=="granted"){
+if ("Notification" in window && Notification.permission !== "granted") {
   Notification.requestPermission();
 }
 
-function notify(){
-  if(Notification.permission==="granted"){
-    new Notification("🔥 Admin Abuse en cours !",{
-      body:"L'Admin Abuse vient de commencer",
-      icon:"logo.png"
+function sendNotification() {
+  if (Notification.permission === "granted") {
+    new Notification("🔥 Admin Abuse en cours !", {
+      body: "L'event Admin Abuse vient de commencer",
     });
   }
 }
 
-function update(){
-  const now=new Date();
-  const c=document.getElementById("timers");
-  c.innerHTML="";
+/* ===============================
+   TIMERS
+================================ */
+function updateTimers() {
+  const now = new Date();
+  const container = document.getElementById("timers");
+  container.innerHTML = "";
 
-  events.forEach(e=>{
-    const start=e.date;
-    const end=new Date(start.getTime()+30*60000);
-    let status="",cls="";
+  events.forEach(event => {
+    const start = event.date;
+    const end = new Date(start.getTime() + EVENT_DURATION);
+    let status = "";
+    let cls = "";
 
-    if(now<start){
-      const diff=start-now;
-      const d=Math.floor(diff/86400000);
-      const h=Math.floor(diff/3600000)%24;
-      const m=Math.floor(diff/60000)%60;
-      const s=Math.floor(diff/1000)%60;
-      status=`${d}j ${h}h ${m}m ${s}s`;
-    }else if(now>=start&&now<=end){
-      status="⏳ EN COURS";
-      cls="en-cours";
-      if(!notified.has(start.getTime())){
-        notify();
+    if (now < start) {
+      const diff = start - now;
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor(diff / 3600000) % 24;
+      const m = Math.floor(diff / 60000) % 60;
+      const s = Math.floor(diff / 1000) % 60;
+      status = `${d}j ${h}h ${m}m ${s}s`;
+    }
+    else if (now >= start && now <= end) {
+      status = "⏳ EN COURS";
+      cls = "en-cours";
+
+      if (!notified.has(start.getTime())) {
+        sendNotification();
         notified.add(start.getTime());
       }
-    }else{
-      status="✅ Passé";
-      cls="passe";
+    }
+    else {
+      status = "✅ Passé";
+      cls = "passe";
     }
 
-    const div=document.createElement("div");
-    div.className="timer";
-    div.innerHTML=`
-      <strong>${e.name}</strong><br>
-      <small>${e.date.toLocaleString()}</small>
+    const div = document.createElement("div");
+    div.className = "timer";
+    div.innerHTML = `
+      <strong>${event.name}</strong><br>
+      <small>${start.toLocaleString()}</small>
       <div class="status ${cls}">${status}</div>
     `;
-    c.appendChild(div);
+    container.appendChild(div);
   });
 }
 
-setInterval(update,1000);
-update();
+/* ===============================
+   UTILS
+================================ */
+function scrollToTimers() {
+  document.getElementById("timers").scrollIntoView({ behavior: "smooth" });
+}
+
+/* ===============================
+   START
+================================ */
+updateTimers();
+setInterval(updateTimers, 1000);
 </script>
 
 </body>
