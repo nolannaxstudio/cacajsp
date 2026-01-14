@@ -8,11 +8,10 @@
 <style>
 :root{
   --bg:#06060a;
-  --card:#0f1116;
   --accent1:#ff006a;
   --accent2:#6b00ff;
   --muted:#9aa0a6;
-  --glass:rgba(255,255,255,.06);
+  --glass:rgba(255,255,255,.07);
   --gradient:linear-gradient(90deg,var(--accent1),var(--accent2));
 }
 
@@ -21,40 +20,19 @@ body{
   font-family:Inter,system-ui,Arial,sans-serif;
   background:var(--bg);
   color:#fff;
-  line-height:1.6;
+  overflow-x:hidden;
 }
 
-/* ---------- COUNTDOWN ---------- */
-#countdownScreen{
+.bg-blur{
   position:fixed;
   inset:0;
-  background:linear-gradient(135deg,#0b0b11,#06060a);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-}
-#countdownBox{
-  background:var(--glass);
-  padding:30px;
-  border-radius:20px;
-  text-align:center;
-  animation:float 4s ease-in-out infinite;
-}
-#countdownBox h2{
-  font-size:2rem;
-  background:var(--gradient);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-#timer{font-size:2.2rem;font-weight:900;margin-top:10px}
-
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,0,106,.18),transparent 40%),
+    radial-gradient(circle at 80% 60%,rgba(107,0,255,.18),transparent 40%);
+  z-index:-1;
 }
 
-/* ---------- NAV ---------- */
+/* NAV */
 nav{
   position:sticky;
   top:0;
@@ -67,53 +45,55 @@ nav{
 }
 .brand{display:flex;gap:14px;align-items:center}
 .logo{
-  width:54px;
-  height:54px;
+  width:54px;height:54px;
   border-radius:12px;
   background:url("logo.png") center/cover;
 }
-.menu{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-}
+.menu{display:flex;gap:12px;flex-wrap:wrap}
 .menu a{
   color:#fff;
   text-decoration:none;
-  padding:8px 12px;
+  padding:8px 14px;
   border-radius:8px;
-  font-weight:700;
+  font-weight:800;
 }
-.menu a:hover{background:rgba(255,255,255,.15)}
+.menu a:hover{background:rgba(255,255,255,.2)}
 .cta{background:#00000030}
 
-/* ---------- HERO ---------- */
+/* HERO */
 .hero{
-  padding:80px 20px;
+  padding:90px 20px;
 }
 .hero-inner{
   max-width:1200px;
   margin:auto;
 }
-.hero h2{
-  font-size:2.8rem;
-  line-height:1.1;
+.hero h1{
+  font-size:3rem;
+  line-height:1.05;
 }
-.hero p{color:var(--muted);margin:14px 0}
+.hero p{color:var(--muted);margin:16px 0}
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,255,255,.12);
+  padding:6px 14px;
+  border-radius:20px;
+  font-weight:800;
+  margin-bottom:12px;
+}
 .buttons{display:flex;gap:12px;flex-wrap:wrap}
-
 .btn{
   background:var(--gradient);
   color:#fff;
   text-decoration:none;
-  padding:12px 20px;
-  border-radius:10px;
-  font-weight:800;
-  transition:transform .2s;
+  padding:12px 22px;
+  border-radius:12px;
+  font-weight:900;
+  transition:.2s;
 }
-.btn:hover{transform:scale(1.05)}
+.btn:hover{transform:scale(1.05);box-shadow:0 0 25px rgba(255,0,106,.5)}
 
-/* ---------- SECTIONS ---------- */
+/* SECTIONS */
 section{
   max-width:900px;
   margin:auto;
@@ -128,12 +108,12 @@ section h2{
 }
 .card{
   background:var(--glass);
-  padding:20px;
-  border-radius:16px;
+  padding:22px;
+  border-radius:18px;
   margin-bottom:20px;
 }
 
-/* ---------- PLAYERS ---------- */
+/* PLAYERS */
 .players{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -142,12 +122,14 @@ section h2{
 .player{
   background:var(--glass);
   padding:14px;
+  border-radius:14px;
   text-align:center;
-  border-radius:12px;
-  font-weight:700;
+  font-weight:800;
+  transition:.2s;
 }
+.player:hover{transform:translateY(-5px)}
 
-/* ---------- LEAKS ---------- */
+/* LEAKS */
 .leaks{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -156,49 +138,38 @@ section h2{
 .leak{
   background:var(--glass);
   padding:14px;
-  border-radius:14px;
-  text-align:center;
+  border-radius:16px;
 }
-.leak img{
-  width:100%;
-  border-radius:12px;
-}
+.leak img{width:100%;border-radius:12px}
 
-/* ---------- FOOTER ---------- */
+/* FOOTER */
 footer{
   text-align:center;
-  color:var(--muted);
   padding:30px;
+  color:var(--muted);
 }
 
-/* ---------- MOBILE ---------- */
-@media(max-width:768px){
-  .hero h2{font-size:2.1rem}
+/* MOBILE */
+@media(max-width:700px){
+  .hero h1{font-size:2.2rem}
   nav{flex-direction:column;gap:10px}
 }
 </style>
 </head>
 
 <body>
-
-<!-- COUNTDOWN -->
-<div id="countdownScreen">
-  <div id="countdownBox">
-    <h2>🔒 Le site ouvre dans</h2>
-    <div id="timer">Chargement…</div>
-  </div>
-</div>
+<div class="bg-blur"></div>
 
 <nav>
   <div class="brand">
     <div class="logo"></div>
     <div>
       <strong>TeamPingPongFR</strong><br>
-      <small>8 joueurs • Steal a Brainrot</small>
+      <small>Steal a Brainrot</small>
     </div>
   </div>
   <div class="menu">
-    <a href="#explication">Explication</a>
+    <a href="timers.html">⏱ Timers</a>
     <a href="#joueurs">Joueurs</a>
     <a href="#leaks">Leaks</a>
     <a class="cta" target="_blank" href="https://discord.gg/sbAxRyRw8h">Discord</a>
@@ -207,8 +178,9 @@ footer{
 
 <header class="hero">
   <div class="hero-inner">
-    <h2>Équipe française compétitive<br>Steal a Brainrot</h2>
-    <p>La communauté Ping-Pong FR la plus active.</p>
+    <span class="hero-badge">🔥 Équipe active chaque semaine</span>
+    <h1>TeamPingPongFR<br>Équipe FR compétitive</h1>
+    <p>La meilleure communauté Steal a Brainrot en France.</p>
     <div class="buttons">
       <a class="btn" target="_blank" href="https://discord.gg/sbAxRyRw8h">Rejoindre Discord</a>
       <a class="btn" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfnbgjY7WGn6Dq6MzfQMka3kwb1HrLb9kqzBTmXiWxshxtWLw/viewform">Postuler</a>
@@ -216,14 +188,14 @@ footer{
   </div>
 </header>
 
-<section id="explication">
+<section>
   <h2>Explication</h2>
   <div class="card">
-    🎯 **TeamPingPongFR** est une équipe compétitive spécialisée dans *Steal a Brainrot*.  
-    Événements chaque samedi, admin abuse et compétitions internes.
+    🎯 TeamPingPongFR est une équipe compétitive Steal a Brainrot.  
+    Events chaque samedi, admin abuse, fun & tryhard.
   </div>
   <div class="card">
-    🧾 Conditions : brainrot > **10–20 m/s**, motivation et respect.
+    🧾 Conditions : brainrot > 10–20 m/s + motivation.
   </div>
 </section>
 
@@ -242,7 +214,7 @@ footer{
 </section>
 
 <section id="leaks">
-  <h2>🕵️ Leaks à venir</h2>
+  <h2>🕵️ Leaks</h2>
   <div class="leaks">
     <div class="leak"><img src="leak1.png"><p>Leak #1</p></div>
     <div class="leak"><img src="leak2.png"><p>Leak #2</p></div>
@@ -253,22 +225,5 @@ footer{
 <footer>
   © TeamPingPongFR — v42
 </footer>
-
-<script>
-const launchDate=new Date("Nov 27, 2025 18:30:00").getTime();
-const timer=document.getElementById("timer");
-const screen=document.getElementById("countdownScreen");
-
-setInterval(()=>{
-  const diff=launchDate-Date.now();
-  if(diff<=0){screen.style.display="none";return;}
-  const d=Math.floor(diff/86400000);
-  const h=Math.floor(diff/3600000)%24;
-  const m=Math.floor(diff/60000)%60;
-  const s=Math.floor(diff/1000)%60;
-  timer.textContent=`${d}j ${h}h ${m}m ${s}s`;
-},1000);
-</script>
-
 </body>
 </html>
