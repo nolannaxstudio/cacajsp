@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Timers Admin Abuse</title>
+<title>Admin Abuse Timers</title>
 
 <style>
 :root{
   --bg:#06060a;
-  --card:#0f1116;
   --accent1:#ff006a;
   --accent2:#6b00ff;
   --muted:#9aa0a6;
-  --glass:rgba(255,255,255,.06);
+  --glass:rgba(255,255,255,.07);
   --gradient:linear-gradient(90deg,var(--accent1),var(--accent2));
 }
 
@@ -21,6 +20,15 @@ body{
   font-family:Inter,system-ui,Arial,sans-serif;
   background:var(--bg);
   color:#fff;
+}
+
+.bg-blur{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 30%,rgba(255,0,106,.18),transparent 40%),
+    radial-gradient(circle at 70% 70%,rgba(107,0,255,.18),transparent 40%);
+  z-index:-1;
 }
 
 /* NAV */
@@ -34,96 +42,66 @@ nav{
   align-items:center;
   padding:16px 24px;
 }
-.brand{display:flex;gap:14px;align-items:center}
-.logo{
-  width:52px;
-  height:52px;
-  border-radius:12px;
-  background:url("logo.png") center/cover;
-}
-.menu{display:flex;gap:12px}
 .menu a{
   color:#fff;
   text-decoration:none;
   padding:8px 14px;
   border-radius:8px;
-  font-weight:700;
+  font-weight:800;
 }
-.menu a:hover{background:rgba(255,255,255,.15)}
+.menu a:hover{background:rgba(255,255,255,.2)}
 
-/* CONTENT */
 .container{
   max-width:900px;
   margin:auto;
-  padding:60px 20px;
+  padding:70px 20px;
   text-align:center;
 }
-
-h2{
-  font-size:2.5rem;
-  margin-bottom:20px;
+h1{
+  font-size:2.6rem;
   background:var(--gradient);
   -webkit-background-clip:text;
   color:transparent;
 }
+.subtitle{color:var(--muted);margin:12px 0 30px}
 
-.subtitle{
-  color:var(--muted);
-  margin-bottom:30px;
-}
-
-/* TIMERS */
 .timers{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:18px;
+  gap:20px;
 }
-
-.timer-box{
+.timer{
   background:var(--glass);
   padding:18px;
-  border-radius:16px;
-  box-shadow:0 0 25px rgba(0,0,0,.6);
-  transition:transform .2s;
+  border-radius:18px;
+  transition:.2s;
 }
-.timer-box:hover{transform:translateY(-5px)}
+.timer:hover{transform:translateY(-6px)}
 
-.timer-title{
-  font-weight:800;
-  margin-bottom:6px;
-}
-
-.timer-date{
-  font-size:.9rem;
-  color:var(--muted);
-  margin-bottom:10px;
-}
-
-.timer-status{
-  font-size:1.2rem;
+.status{
+  font-size:1.3rem;
   font-weight:900;
+  margin-top:10px;
 }
-
-.en-cours{color:#ffd000}
+.en-cours{
+  color:#ffd000;
+  animation:pulse 1.5s infinite;
+}
 .passe{color:#4cff4c}
 
-/* MOBILE */
-@media(max-width:600px){
-  h2{font-size:2rem}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 rgba(255,208,0,.5)}
+  50%{box-shadow:0 0 25px rgba(255,208,0,.9)}
+  100%{box-shadow:0 0 0 rgba(255,208,0,.5)}
 }
 </style>
 </head>
 
 <body>
+<div class="bg-blur"></div>
 
 <nav>
-  <div class="brand">
-    <div class="logo"></div>
-    <div>
-      <strong>Admin Abuse</strong><br>
-      <small>Steal a Brainrot • Timers</small>
-    </div>
-  </div>
+  <strong>Admin Abuse</strong>
   <div class="menu">
     <a href="index.html">Menu</a>
     <a target="_blank" href="https://discord.gg/sbAxRyRw8h">Discord</a>
@@ -131,12 +109,10 @@ h2{
 </nav>
 
 <div class="container">
-  <h2>⏳ Prochains Admin Abuse</h2>
-  <p class="subtitle">Liste automatique des événements à venir</p>
+  <h1>⏳ Admin Abuse</h1>
+  <p class="subtitle">Notification automatique au lancement</p>
 
-  <div id="timers" class="timers">
-    Chargement…
-  </div>
+  <div id="timers" class="timers">Chargement…</div>
 </div>
 
 <script>
@@ -144,21 +120,37 @@ const events=[];
 const startDate=new Date("2025-11-29T21:00:00");
 let d=new Date(startDate);
 
-// jusqu'à fin mars 2026
+// jusqu'à mars 2026
 while(d.getFullYear()<2026||(d.getFullYear()===2026&&d.getMonth()<=2)){
   events.push({name:"Admin Abuse",date:new Date(d)});
   d.setDate(d.getDate()+7);
 }
 
-function updateTimers(){
-  const now=new Date();
-  const container=document.getElementById("timers");
-  container.innerHTML="";
+let notified=new Set();
 
-  events.forEach(event=>{
-    const start=event.date;
-    const end=new Date(start.getTime()+30*60*1000);
-    let status="",className="";
+// demander permission
+if("Notification"in window && Notification.permission!=="granted"){
+  Notification.requestPermission();
+}
+
+function notify(){
+  if(Notification.permission==="granted"){
+    new Notification("🔥 Admin Abuse en cours !",{
+      body:"L'Admin Abuse vient de commencer",
+      icon:"logo.png"
+    });
+  }
+}
+
+function update(){
+  const now=new Date();
+  const c=document.getElementById("timers");
+  c.innerHTML="";
+
+  events.forEach(e=>{
+    const start=e.date;
+    const end=new Date(start.getTime()+30*60000);
+    let status="",cls="";
 
     if(now<start){
       const diff=start-now;
@@ -167,29 +159,31 @@ function updateTimers(){
       const m=Math.floor(diff/60000)%60;
       const s=Math.floor(diff/1000)%60;
       status=`${d}j ${h}h ${m}m ${s}s`;
-    }
-    else if(now>=start&&now<=end){
-      status="⏳ En cours";
-      className="en-cours";
-    }
-    else{
+    }else if(now>=start&&now<=end){
+      status="⏳ EN COURS";
+      cls="en-cours";
+      if(!notified.has(start.getTime())){
+        notify();
+        notified.add(start.getTime());
+      }
+    }else{
       status="✅ Passé";
-      className="passe";
+      cls="passe";
     }
 
-    const box=document.createElement("div");
-    box.className="timer-box";
-    box.innerHTML=`
-      <div class="timer-title">${event.name}</div>
-      <div class="timer-date">${event.date.toLocaleString()}</div>
-      <div class="timer-status ${className}">${status}</div>
+    const div=document.createElement("div");
+    div.className="timer";
+    div.innerHTML=`
+      <strong>${e.name}</strong><br>
+      <small>${e.date.toLocaleString()}</small>
+      <div class="status ${cls}">${status}</div>
     `;
-    container.appendChild(box);
+    c.appendChild(div);
   });
 }
 
-setInterval(updateTimers,1000);
-updateTimers();
+setInterval(update,1000);
+update();
 </script>
 
 </body>
