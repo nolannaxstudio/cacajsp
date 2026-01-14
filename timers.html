@@ -1,100 +1,195 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Timers Admin Abuse</title>
-  <style>
-    :root{
-      --bg:#06060a; --card:#0f1116; --accent1:#ff006a; --accent2:#6b00ff; --muted:#9aa0a6;
-      --glass: rgba(255,255,255,0.03);
-      --section-bg: rgba(255,255,255,0.05);
-      --button-bg: linear-gradient(90deg,var(--accent1),var(--accent2));
-    }
-    *{box-sizing:border-box;}
-    body{margin:0;font-family:Inter, system-ui, Arial, sans-serif;background:var(--bg);color:#fff;overflow-y:scroll;}
-    nav{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:linear-gradient(90deg,var(--accent1),var(--accent2));box-shadow:0 8px 40px rgba(0,0,0,0.6);position:sticky;top:0;z-index:40;}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:56px;height:56px;border-radius:12px;background:url('logo.png') no-repeat center/cover;}
-    .brand h1{font-size:1.05rem;margin:0}
-    .menu{display:flex;gap:14px}
-    .menu a{color:white;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
-    .menu a:hover{background:var(--glass)}
-    .cta{background:var(--button-bg);padding:8px 12px;border-radius:8px;color:white;text-decoration:none}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timers Admin Abuse</title>
 
-    #countdownScreen{margin-top:20px;padding:20px;text-align:center;}
-    #countdownBox{background:rgba(255,255,255,0.05);padding:30px;border-radius:20px;backdrop-filter:blur(6px);box-shadow:0 0 50px rgba(0,0,0,0.6);max-height:80vh;overflow-y:auto;}
-    #countdownScreen h2{font-size:2.2rem;margin-bottom:20px;background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;color:transparent;font-weight:900;}
-    #timers{font-size:1.5rem;}
+<style>
+:root{
+  --bg:#06060a;
+  --card:#0f1116;
+  --accent1:#ff006a;
+  --accent2:#6b00ff;
+  --muted:#9aa0a6;
+  --glass:rgba(255,255,255,.06);
+  --gradient:linear-gradient(90deg,var(--accent1),var(--accent2));
+}
 
-    @keyframes fadeIn{from{opacity:0} to{opacity:1}}
-    @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,Arial,sans-serif;
+  background:var(--bg);
+  color:#fff;
+}
 
-    .timer-box{background:var(--card);padding:20px;margin:15px auto;border-radius:16px;width:90%;max-width:500px;box-shadow:0 0 30px rgba(0,0,0,0.5);}
-  </style>
+/* NAV */
+nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:var(--gradient);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 24px;
+}
+.brand{display:flex;gap:14px;align-items:center}
+.logo{
+  width:52px;
+  height:52px;
+  border-radius:12px;
+  background:url("logo.png") center/cover;
+}
+.menu{display:flex;gap:12px}
+.menu a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 14px;
+  border-radius:8px;
+  font-weight:700;
+}
+.menu a:hover{background:rgba(255,255,255,.15)}
+
+/* CONTENT */
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:60px 20px;
+  text-align:center;
+}
+
+h2{
+  font-size:2.5rem;
+  margin-bottom:20px;
+  background:var(--gradient);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.subtitle{
+  color:var(--muted);
+  margin-bottom:30px;
+}
+
+/* TIMERS */
+.timers{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+}
+
+.timer-box{
+  background:var(--glass);
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 0 25px rgba(0,0,0,.6);
+  transition:transform .2s;
+}
+.timer-box:hover{transform:translateY(-5px)}
+
+.timer-title{
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.timer-date{
+  font-size:.9rem;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+
+.timer-status{
+  font-size:1.2rem;
+  font-weight:900;
+}
+
+.en-cours{color:#ffd000}
+.passe{color:#4cff4c}
+
+/* MOBILE */
+@media(max-width:600px){
+  h2{font-size:2rem}
+}
+</style>
 </head>
+
 <body>
 
 <nav>
   <div class="brand">
     <div class="logo"></div>
     <div>
-      <h1>Admin Abuse</h1>
-      <div style="font-size:12px;color:var(--muted)">Steal a Brainrot • Timers</div>
+      <strong>Admin Abuse</strong><br>
+      <small>Steal a Brainrot • Timers</small>
     </div>
   </div>
   <div class="menu">
-    <a class="cta" href="index.html">Menu</a>
-    <a class="cta" href="https://discord.gg/sbAxRyRw8h" target="_blank">Discord</a>
+    <a href="index.html">Menu</a>
+    <a target="_blank" href="https://discord.gg/sbAxRyRw8h">Discord</a>
   </div>
 </nav>
 
-<div id="countdownScreen">
-  <div id="countdownBox">
-    <h2>⏳ Prochains Admin Abuse :</h2>
-    <div id="timers">Chargement…</div>
+<div class="container">
+  <h2>⏳ Prochains Admin Abuse</h2>
+  <p class="subtitle">Liste automatique des événements à venir</p>
+
+  <div id="timers" class="timers">
+    Chargement…
   </div>
 </div>
 
 <script>
-  const events = [];
-  const startDate = new Date("2025-11-29T21:00:00");
-  let d = new Date(startDate);
-  // Jusqu'à fin mars 2026
-  while (d.getFullYear() < 2026 || (d.getFullYear() === 2026 && d.getMonth() <= 2)) {
-    events.push({name: "Admin Abuse", date: new Date(d)});
-    d.setDate(d.getDate() + 7);
-  }
+const events=[];
+const startDate=new Date("2025-11-29T21:00:00");
+let d=new Date(startDate);
 
-  function updateTimers() {
-    const now = new Date();
-    const container = document.getElementById("timers");
-    container.innerHTML = "";
-    events.forEach(event => {
-      const start = event.date;
-      const end = new Date(start.getTime() + 30*60*1000); // 30 minutes
-      let text = "";
-      if(now < start){
-        const diff = start - now;
-        const days = Math.floor(diff/(1000*60*60*24));
-        const hours = Math.floor((diff/(1000*60*60))%24);
-        const minutes = Math.floor((diff/(1000*60))%60);
-        const seconds = Math.floor((diff/1000)%60);
-        text = `${days}j ${hours}h ${minutes}m ${seconds}s`;
-      } else if(now >= start && now <= end){
-        text = "⏳ En cours";
-      } else {
-        text = "✅ Passé";
-      }
-      const box = document.createElement("div");
-      box.className="timer-box";
-      box.innerHTML = `<strong>${event.name}</strong><br>${event.date.toLocaleString()}<br><span>${text}</span>`;
-      container.appendChild(box);
-    });
-  }
+// jusqu'à fin mars 2026
+while(d.getFullYear()<2026||(d.getFullYear()===2026&&d.getMonth()<=2)){
+  events.push({name:"Admin Abuse",date:new Date(d)});
+  d.setDate(d.getDate()+7);
+}
 
-  setInterval(updateTimers,1000);
-  updateTimers();
+function updateTimers(){
+  const now=new Date();
+  const container=document.getElementById("timers");
+  container.innerHTML="";
+
+  events.forEach(event=>{
+    const start=event.date;
+    const end=new Date(start.getTime()+30*60*1000);
+    let status="",className="";
+
+    if(now<start){
+      const diff=start-now;
+      const d=Math.floor(diff/86400000);
+      const h=Math.floor(diff/3600000)%24;
+      const m=Math.floor(diff/60000)%60;
+      const s=Math.floor(diff/1000)%60;
+      status=`${d}j ${h}h ${m}m ${s}s`;
+    }
+    else if(now>=start&&now<=end){
+      status="⏳ En cours";
+      className="en-cours";
+    }
+    else{
+      status="✅ Passé";
+      className="passe";
+    }
+
+    const box=document.createElement("div");
+    box.className="timer-box";
+    box.innerHTML=`
+      <div class="timer-title">${event.name}</div>
+      <div class="timer-date">${event.date.toLocaleString()}</div>
+      <div class="timer-status ${className}">${status}</div>
+    `;
+    container.appendChild(box);
+  });
+}
+
+setInterval(updateTimers,1000);
+updateTimers();
 </script>
 
 </body>
