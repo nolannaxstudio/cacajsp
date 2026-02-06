@@ -1,9 +1,10 @@
+<!-- ================= INDEX.HTML (FORTNITE VERSION) ================= -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TeamPingPongFR</title>
+<title>TeamPingPongFR - Fortnite</title>
 
 <style>
 :root{
@@ -32,7 +33,6 @@ body{
   z-index:-1;
 }
 
-/* NAV */
 nav{
   position:sticky;
   top:0;
@@ -60,18 +60,9 @@ nav{
 .menu a:hover{background:rgba(255,255,255,.2)}
 .cta{background:#00000030}
 
-/* HERO */
-.hero{
-  padding:90px 20px;
-}
-.hero-inner{
-  max-width:1200px;
-  margin:auto;
-}
-.hero h1{
-  font-size:3rem;
-  line-height:1.05;
-}
+.hero{padding:90px 20px;}
+.hero-inner{max-width:1200px;margin:auto;}
+.hero h1{font-size:3rem;line-height:1.05;}
 .hero p{color:var(--muted);margin:16px 0}
 .hero-badge{
   display:inline-block;
@@ -93,12 +84,7 @@ nav{
 }
 .btn:hover{transform:scale(1.05);box-shadow:0 0 25px rgba(255,0,106,.5)}
 
-/* SECTIONS */
-section{
-  max-width:900px;
-  margin:auto;
-  padding:70px 20px;
-}
+section{max-width:900px;margin:auto;padding:70px 20px;}
 section h2{
   font-size:2.4rem;
   margin-bottom:20px;
@@ -113,7 +99,6 @@ section h2{
   margin-bottom:20px;
 }
 
-/* PLAYERS */
 .players{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -129,27 +114,16 @@ section h2{
 }
 .player:hover{transform:translateY(-5px)}
 
-/* LEAKS */
 .leaks{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:20px;
 }
-.leak{
-  background:var(--glass);
-  padding:14px;
-  border-radius:16px;
-}
+.leak{background:var(--glass);padding:14px;border-radius:16px;}
 .leak img{width:100%;border-radius:12px}
 
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
-}
+footer{text-align:center;padding:30px;color:var(--muted);}
 
-/* MOBILE */
 @media(max-width:700px){
   .hero h1{font-size:2.2rem}
   nav{flex-direction:column;gap:10px}
@@ -165,22 +139,22 @@ footer{
     <div class="logo"></div>
     <div>
       <strong>TeamPingPongFR</strong><br>
-      <small>Steal a Brainrot</small>
+      <small>Fortnite Competitive Team</small>
     </div>
   </div>
   <div class="menu">
     <a href="timers.html">⏱ Timers</a>
     <a href="#joueurs">Joueurs</a>
-    <a href="#leaks">Leaks</a>
+    <a href="#leaks">Clips / Leaks</a>
     <a class="cta" target="_blank" href="https://discord.gg/sbAxRyRw8h">Discord</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="hero-inner">
-    <span class="hero-badge">🔥 Équipe active chaque semaine</span>
-    <h1>TeamPingPongFR<br>Équipe FR compétitive</h1>
-    <p>La meilleure communauté Steal a Brainrot en France.</p>
+    <span class="hero-badge">🔥 Scrims, events et tournois chaque semaine</span>
+    <h1>TeamPingPongFR<br>Équipe Fortnite FR compétitive</h1>
+    <p>Communauté Fortnite française orientée fun, tryhard et compétition.</p>
     <div class="buttons">
       <a class="btn" target="_blank" href="https://discord.gg/sbAxRyRw8h">Rejoindre Discord</a>
       <a class="btn" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfnbgjY7WGn6Dq6MzfQMka3kwb1HrLb9kqzBTmXiWxshxtWLw/viewform">Postuler</a>
@@ -189,13 +163,13 @@ footer{
 </header>
 
 <section>
-  <h2>Explication</h2>
+  <h2>Présentation</h2>
   <div class="card">
-    🎯 TeamPingPongFR est une équipe compétitive Steal a Brainrot.  
-    Events chaque samedi, admin abuse, fun & tryhard.
+    🎮 TeamPingPongFR est une team Fortnite FR compétitive.  
+    Scrims, ranked, tournois, events fun et entraînements réguliers.
   </div>
   <div class="card">
-    🧾 Conditions : brainrot > 10–20 m/s + motivation.
+    📋 Conditions : bon niveau Fortnite, motivation, présence aux events et esprit d'équipe.
   </div>
 </section>
 
@@ -214,16 +188,161 @@ footer{
 </section>
 
 <section id="leaks">
-  <h2>🕵️ Leaks</h2>
+  <h2>🎥 Clips / Leaks Fortnite</h2>
   <div class="leaks">
-    <div class="leak"><img src="leak1.png"><p>Leak #1</p></div>
-    <div class="leak"><img src="leak2.png"><p>Leak #2</p></div>
-    <div class="leak"><img src="leak3.png"><p>Leak #3</p></div>
+    <div class="leak"><img src="leak1.png"><p>Clip #1</p></div>
+    <div class="leak"><img src="leak2.png"><p>Clip #2</p></div>
+    <div class="leak"><img src="leak3.png"><p>Clip #3</p></div>
   </div>
 </section>
 
 <footer>
-  © TeamPingPongFR — v42
+  © TeamPingPongFR — Fortnite Division
 </footer>
+</body>
+</html>
+
+
+<!-- ================= TIMERS.HTML (FORTNITE EVENTS) ================= -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Fortnite Events Timers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#06060a;
+  --card:#0f1116;
+  --accent1:#ff006a;
+  --accent2:#6b00ff;
+  --muted:#9aa0a6;
+}
+
+body{margin:0;font-family:Inter, Arial, sans-serif;background:var(--bg);color:white;}
+
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;background:linear-gradient(90deg,var(--accent1),var(--accent2));}
+nav h1{margin:0;font-size:20px;}
+nav a{color:white;text-decoration:none;font-weight:700;padding:8px 14px;border-radius:8px;background:rgba(255,255,255,0.15);}
+
+main{padding:30px;text-align:center;}
+
+.desc{
+  max-width:700px;
+  margin:auto;
+  background:rgba(255,255,255,0.05);
+  padding:20px;
+  border-radius:16px;
+}
+
+#mainTimer{background:rgba(255,255,255,0.05);padding:30px;border-radius:20px;max-width:700px;margin:30px auto;box-shadow:0 0 40px rgba(0,0,0,0.6);}
+#mainTimer h2{font-size:2.2rem;background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;color:transparent;}
+#mainCountdown{font-size:2rem;margin-top:15px;}
+
+#timers{margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.timer{background:var(--card);padding:20px;border-radius:16px;box-shadow:0 0 25px rgba(0,0,0,0.5);}
+.status{margin-top:10px;font-weight:800;}
+.en-cours{color:#ff5252;}
+.passe{color:#4caf50;}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h1>🔥 Fortnite Admin Abuse Event</h1>
+  <a href="index.html">Menu</a>
+</nav>
+
+<main>
+
+<div class="desc">
+Prépare‑toi à un mélange explosif de fun, de folie et de pur admin power sur Fortnite :<br><br>
+🕤 20h20 – Server Luck Booster<br>
+🕤 20h57 – Code Admin Server Luck MAX<br>
+🕙 21h00 – Admin Abuse ✘ Wave Event ✘ LOVE Event
+</div>
+
+<div id="mainTimer">
+  <h2>⏳ Prochain Event Fortnite</h2>
+  <div id="mainCountdown">Chargement…</div>
+</div>
+
+<div id="timers"></div>
+
+</main>
+
+<script>
+const START_DATE = new Date("2025-11-29T21:00:00");
+const EVENT_DURATION = 30*60*1000;
+const END_YEAR = 2026;
+const END_MONTH = 2;
+
+const events=[];
+let d=new Date(START_DATE);
+while(d.getFullYear()<END_YEAR || (d.getFullYear()===END_YEAR && d.getMonth()<=END_MONTH)){
+  events.push({name:"Fortnite Admin Abuse Event",date:new Date(d)});
+  d.setDate(d.getDate()+7);
+}
+
+function update(){
+  const now=new Date();
+  const list=document.getElementById("timers");
+  list.innerHTML="";
+
+  const next=events.find(e=> now < new Date(e.date.getTime()+EVENT_DURATION));
+
+  if(next){
+    const start=next.date;
+    const end=new Date(start.getTime()+EVENT_DURATION);
+    let text="";
+
+    if(now < start){
+      const diff=start-now;
+      const d=Math.floor(diff/86400000);
+      const h=Math.floor(diff/3600000)%24;
+      const m=Math.floor(diff/60000)%60;
+      const s=Math.floor(diff/1000)%60;
+      text=`${d}j ${h}h ${m}m ${s}s`;
+    }else{
+      text="⏳ EN COURS";
+    }
+    document.getElementById("mainCountdown").innerText=text;
+  }else{
+    document.getElementById("mainCountdown").innerText="Aucun événement prévu";
+  }
+
+  events.forEach(e=>{
+    const start=e.date;
+    const end=new Date(start.getTime()+EVENT_DURATION);
+    let status="",cls="";
+
+    if(now < start){
+      const diff=start-now;
+      status=`${Math.floor(diff/86400000)}j ${Math.floor(diff/3600000)%24}h`;
+    }else if(now>=start && now<=end){
+      status="⏳ EN COURS";
+      cls="en-cours";
+    }else{
+      status="✅ Passé";
+      cls="passe";
+    }
+
+    const div=document.createElement("div");
+    div.className="timer";
+    div.innerHTML=`
+      <strong>${e.name}</strong><br>
+      ${start.toLocaleString()}
+      <div class="status ${cls}">${status}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+update();
+setInterval(update,1000);
+</script>
+
 </body>
 </html>
